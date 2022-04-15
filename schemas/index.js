@@ -16,8 +16,8 @@ const connect = () => {
   );
 };
 
-mongoose.console.on("error", (err) => {
-  console.log("몽고디비 연결 에러", err);
-});
+// mongoose.console.on("error", (err) => {
+//   console.log("몽고디비 연결 에러", err);
+// });
 
 module.exports = connect;
