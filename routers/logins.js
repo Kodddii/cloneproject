@@ -6,6 +6,16 @@ const router = express.Router();
 
 router.post("/login/signUp", async (req, res) => {
   const { userId, pwd, pwdCheck, userName, userAddress } = req.body;
+  //비밀번호 영문/숫자/특수조합 (8-25자리) 정규식
+  const pwdValidation = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*+=-])(?=.*[0-9]).{8,25}$/;
+
+  if (!pwdValidation.test(pwd.value)) {
+    res.status(400).send({
+      errorMessage:
+        "비밀번호는 영문+숫자+특수문자 조합으로 8-25자리 사용해야합니다.",
+    });
+    return;
+  }
 
   if (pwd !== pwdCheck) {
     res.status(400).send({
@@ -60,10 +70,10 @@ router.post("/login/reqLogin", async (req, res) => {
   res.send({ token, userId, userName, userAddress });
 });
 
-router.get("/login/isLogin", authMiddleWare, (req, res) => {
-  console.log(res.locals);
-  res.send("로그인 상태입니다.");
-});
+// router.get("/login/isLogin", authMiddleWare, (req, res) => {
+//   console.log(res.locals);
+//   res.send("로그인 상태입니다.");
+// });
 
 // router.get("/checkLogin", authMiddleware, async (req, res) => {
 //   const { user } = res.locals;
