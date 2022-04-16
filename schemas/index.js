@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 //mongoose와 DB를 연결
 const connect = () => {
   mongoose.connect(
-    "mongodb://localhost:3000/cloneProj",
+    "mongodb://localhost:27017/cloneProj",
     {
       ignoreUndefined: true,
       useNewUrlParser: true,
@@ -16,7 +16,7 @@ const connect = () => {
   );
 };
 
-mongoose.console.on("error", (err) => {
+mongoose.connection.on("error", (err) => {
   console.log("몽고디비 연결 에러", err);
 });
 

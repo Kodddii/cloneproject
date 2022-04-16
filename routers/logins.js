@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../schemas/uesr");
+const authMiddleWare = require("../middleWares/authMiddleWare");
 const router = express.Router();
 
 router.post("/login/signUp", async (req, res) => {
@@ -42,11 +43,37 @@ router.post("/login/idCheck", async (req, res) => {
   res.send("사용 가능한 아이디입니다.");
 });
 
-router.post("/login/reqLogin", async (req, res) => {});
+router.post("/login/reqLogin", async (req, res) => {
+  const { userId, pwd } = req.body;
+  const user = await User.findOne({ userId, pwd }).exec();
+  console.log(user);
+  if (!user) {
+    res.status(401).send({
+      errorMessage: "아이디 혹은 비밀번호가 잘못되었습니다.",
+    });
+    return;
+  }
+  const userName = user.userName;
+  const userAddress = user.userAddress;
+  const token = jwt.sign({ userId: user.userId }, "my-secret-key");
 
-router.get("/login/isLogin", (req, res) => {});
+  res.send({ token, userId, userName, userAddress });
+});
 
-router.get("/login/getUser", (req, res) => {});
+router.get("/login/isLogin", authMiddleWare, (req, res) => {
+  console.log(res.locals);
+  res.send("로그인 상태입니다.");
+});
+
+// router.get("/checkLogin", authMiddleware, async (req, res) => {
+//   const { user } = res.locals;
+//   res.send({ user_name: user[0].user_name, _id: user[0]._id });
+// });
+
+router.get("/login/getUser", authMiddleWare, (req, res) => {
+  const { user } = res.locals;
+  res.send({ user });
+});
 
 router.get("/login/logOut", (req, res) => {
   localStorage.clear();

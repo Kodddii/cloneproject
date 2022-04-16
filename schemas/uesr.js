@@ -8,10 +8,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pwdCheck: {
-    type: String,
-    required: true,
-  },
   userName: {
     type: String,
     required: true,
@@ -19,6 +15,9 @@ const UserSchema = new mongoose.Schema({
   userAddress: {
     type: String,
     required: true,
+  },
+  userCart: {
+    type: [],
   },
 });
 

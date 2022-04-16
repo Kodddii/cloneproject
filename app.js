@@ -2,9 +2,11 @@
 const express = require("express");
 const cors = require("cors");
 const connect = require("./schemas");
-
 const app = express();
 const port = 3000;
+
+//라우터
+const loginRouter = require("./routers/logins");
 
 connect();
 
@@ -20,7 +22,8 @@ app.use(express.json());
 app.use(requestMiddleWare);
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", []);
+//라우터 연결
+app.use("/", [loginRouter]);
 
 app.listen(port, () => {
   console.log(port, "번으로 서버가 켜졌어요!");
