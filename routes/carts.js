@@ -4,6 +4,8 @@ const authMiddleware = require("../middlewares/auth-middleware");
 
 const controller = require("../controller/carts");
 
+const cartsRouter = require("./routes/carts")
+
 // 장바구니 추가
 router.post("/:itemId", authMiddleware, controller.postCart);
 

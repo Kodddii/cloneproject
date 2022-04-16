@@ -1,7 +1,7 @@
 const Cart = require("../models/carts");
 const Posts = require("../models/pages");
 
-const postCart = async (req, res) => {
+const Cart = async (req, res) => {
   const userEmail = res.locals.user.email;
   const { quantity } = req.body;
   const { postId } = req.params;
