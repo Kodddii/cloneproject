@@ -1,23 +1,16 @@
 const mongoose = require("mongoose");
 
-//mongoose와 DB를 연결
 const connect = () => {
-  mongoose.connect(
-    "mongodb://localhost:3000/cloneProj",
-    {
-      ignoreUndefined: true,
+  mongoose
+    .connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    },
-    (error) => {
-      if (error) console.log("Mongo DB Connect Error");
-      else console.log("Mongo DB Connect Success");
-    }
-  );
+    })
+    .catch((err) => console.log(err));
 };
 
-// mongoose.console.on("error", (err) => {
-//   console.log("몽고디비 연결 에러", err);
-// });
+mongoose.connection.on("error", (err) => {
+  console.error("몽고디비 연결 에러", err);
+});
 
 module.exports = connect;
