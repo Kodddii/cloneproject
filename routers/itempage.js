@@ -1,6 +1,6 @@
 const express = require("express");
 const res = require("express/lib/response");
-const Item = require("../schemas/item");
+const Item = require("../schemas/item.js");
 const router = express.Router();
 
 
