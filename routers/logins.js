@@ -24,6 +24,7 @@ router.post("/login/signUp", async (req, res) => {
     return;
   }
 
+  //아이디 중복확인
   const existUser = await User.find({
     $or: [{ userId }],
   });
