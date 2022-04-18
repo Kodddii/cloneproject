@@ -7,7 +7,7 @@ const {
   reqLogin,
   getUser,
   logOut,
-} = require("../controllers/login");
+} = require("../controller/login");
 
 router.post("/login/signUp", signUp);
 
