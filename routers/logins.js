@@ -1,21 +1,20 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const User = require("../schemas/user");
+const User = require("../schemas/uesr");
 const authMiddleWare = require("../middleWares/authMiddleWare");
 const router = express.Router();
 
 router.post("/login/signUp", async (req, res) => {
   const { userId, pwd, pwdCheck, userName, userAddress } = req.body;
-  //비밀번호 영문/숫자/특수조합 (8-25자리) 정규식
-  // const pwdValidation = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*+=-])(?=.*[0-9]).{8,25}$/;
+  //비밀번호 최소 문자 1, 숫자 1 포함 (8자리 이상) 정규식
+  const pwdValidation = /^(?=.*[A-Za-z])(?=.*\d)[\w]{8,}$/;
 
-  // if (!pwdValidation.test(pwd.value)) {
-  //   res.status(400).send({
-  //     errorMessage:
-  //       "비밀번호는 영문+숫자+특수문자 조합으로 8-25자리 사용해야합니다.",
-  //   });
-  //   return;
-  // }
+  if (!pwdValidation.test(pwd)) {
+    res.status(400).send({
+      errorMessage: "비밀번호는 영문+숫자 조합으로 8자리 이상 사용해야합니다.",
+    });
+    return;
+  }
 
   if (pwd !== pwdCheck) {
     res.status(400).send({
