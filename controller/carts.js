@@ -48,15 +48,20 @@ const addCart = async (req, res) => {
 };
  
  //장바구니 조회
- const readCart = async (req, res) => {
-  const carts = await Cart.find();
-  const results = carts.map((cart) => {
-    return {
-      quantity: cart.itemAmount,
-      item: itempage.find((item) => item.itemId === cart.itemId),
-    };
-  });
-  res.json({ carts: results });
+  const readCart = async (req, res) => {
+  const { user } = res.locals;
+  console.log(user)
+  const userId = user[0].userId;
+  console.log(userId)
+  const userData = await User.find({_id: userId});
+  console.log(userData)
+  const cart = userData.userCart
+//     return {
+//       : cart.itemAmount,
+//       item: itempage.find((item) => item.itemId === cart.itemId),
+//     };
+//   });
+  res.send("토큰")
 };
 
 module.exports = { addCart, readCart };
