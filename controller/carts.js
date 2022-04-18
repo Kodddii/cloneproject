@@ -6,7 +6,7 @@ const addCart = async (req, res) => {
 //   const itemId = req.params;
   const { user } = res.locals;
   const userId = user[0].userId;
-
+  console.log("여기여기")
   console.log({userId})
 
   // const item = Item.findOne({ _Id: itemId });
@@ -48,15 +48,17 @@ const addCart = async (req, res) => {
 };
  
  //장바구니 조회
- const readCart = async (req, res) => {
-  const carts = await Cart.find();
-  const results = carts.map((cart) => {
-    return {
-      quantity: cart.itemAmount,
-      item: itempage.find((item) => item.itemId === cart.itemId),
-    };
-  });
-  res.json({ carts: results });
+const readCart = async (req, res) => {
+  
+  const { user } = res.locals;
+  const cart = user[0].userCart;
+  
+//     return {
+//       : cart.itemAmount,
+//       item: itempage.find((item) => item.itemId === cart.itemId),
+//     };
+//   });
+  res.json(cart);
 };
 
-module.exports = { addCart, readCart };
+module.exports = {addCart,readCart}  ;
