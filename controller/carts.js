@@ -6,7 +6,7 @@ const addCart = async (req, res) => {
 //   const itemId = req.params;
   const { user } = res.locals;
   const userId = user[0].userId;
-
+  console.log("여기여기")
   console.log({userId})
 
   // const item = Item.findOne({ _Id: itemId });
@@ -48,20 +48,17 @@ const addCart = async (req, res) => {
 };
  
  //장바구니 조회
-  const readCart = async (req, res) => {
+const readCart = async (req, res) => {
+  
   const { user } = res.locals;
-  console.log(user)
-  const userId = user[0].userId;
-  console.log(userId)
-  const userData = await User.find({_id: userId});
-  console.log(userData)
-  const cart = userData.userCart
+  const cart = user[0].userCart;
+  
 //     return {
 //       : cart.itemAmount,
 //       item: itempage.find((item) => item.itemId === cart.itemId),
 //     };
 //   });
-  res.send("토큰")
+  res.json(cart);
 };
 
-module.exports = { addCart, readCart };
+module.exports = {addCart,readCart}  ;
