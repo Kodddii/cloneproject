@@ -10,12 +10,14 @@ const addCart = async (req, res) => {
   console.log({userId})
 
   // const item = Item.findOne({ _Id: itemId });
-  const { itemId, itemName, itemAmount, itemPrice, itemImg } = req.body;
+  const { itemId, itemName, itemAmount, itemPrice, userAddress, itemCategory, itemImg } = req.body;
   const userCartData = {
     itemId: itemId,
     itemName: itemName,
     itemAmount: itemAmount,
     itemPrice: itemPrice,
+    userAddress: userAddress, 
+    itemCategory: itemCategory,
     itemImg: itemImg,
   };
 
@@ -38,6 +40,8 @@ const addCart = async (req, res) => {
     itemName: itemName,
     itemAmount: itemAmount,
     itemPrice: itemPrice,
+    userAddress: userAddress,
+    itemCategory: itemCategory,
     itemImg: itemImg,
   });
   res.send("장바구니에 상품이 추가되었습니다!");
