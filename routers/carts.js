@@ -1,28 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const addCart = require("../schemas/cart");
-// const authMiddleWare = require("../middleWares/authMiddleWare");
+// const addCart = require("../schemas/cart");
+const authMiddleWare = require("../middleWares/authMiddleWare");
 
 
-const controller = require("../controller/carts");
+const { addCart, readCart} = require("../controller/carts");
 
 //장바구니에 상품 담기
-router.post("/addCart", authMiddleware, controller.addCart);
+router.post("/addCart", authMiddleWare, addCart);
 
 //장바구니 조회
-router.get("/readCart", authMiddleware, controller.getCart);
+router.get("/readCart", authMiddleWare, readCart);
 
-//장바구니 수정
-router.put("/editCart", authMiddleware, controller.putCart);
+// //장바구니 수정
+// router.put("/editCart", authMiddleWare, controller.putCart);
 
-// 장바구니 수량 증가 +1
-router.put("/inc/:itemId", authMiddleware, controller.putCartInc);
+// // 장바구니 수량 증가 +1
+// router.put("/inc/:itemId", authMiddleWare, controller.putCartInc);
 
-// 장바구니 수량 감소 -1
-router.put("/dec/:itemId", authMiddleware, controller.putCartDec);
+// // 장바구니 수량 감소 -1
+// router.put("/dec/:itemId", authMiddleWare, controller.putCartDec);
 
-// 장바구니 삭제
-router.delete("/deleteCart", authMiddleware, controller.deleteCart);
+// // 장바구니 삭제
+// router.delete("/deleteCart", authMiddleWare, controller.deleteCart);
 
 
 // router.get("/api/carts", async (req, res) => {

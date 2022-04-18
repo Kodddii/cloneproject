@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
 //라우터 연결
-app.use("/api", [loginRouter, itemRouter, cartsRouter]);
+app.use("/", [loginRouter, itemRouter, cartsRouter]);
 
 
 
