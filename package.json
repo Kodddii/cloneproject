@@ -7,7 +7,6 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.0",
-    "nodemon": "^2.0.15",
     "puppeteer": "^13.5.2",
     "swagger": "^0.7.5"
   }

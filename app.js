@@ -1,8 +1,9 @@
 //express 모듈 불러오기
-require("dotenv").config();
+const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const connect = require("./schemas");
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
