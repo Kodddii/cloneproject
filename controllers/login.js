@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const User = require("../../schemas/user");
+const User = require("../schemas/user");
 
 const signUp = async (req, res) => {
   const { userId, pwd, pwdCheck, userName, userAddress } = req.body;
