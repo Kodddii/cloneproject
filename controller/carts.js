@@ -36,13 +36,14 @@ const addCart = async (req, res) => {
 //   console.log(userCartData)
 //   cart.push(userCart);
   await Cart.create({
-    itemId,
+    itemId:itemId,
     itemName: itemName,
     itemAmount: itemAmount,
     itemPrice: itemPrice,
     userAddress: userAddress,
     itemCategory: itemCategory,
     itemImg: itemImg,
+    userId:userId,
   });
   res.send("장바구니에 상품이 추가되었습니다!");
 };
@@ -60,5 +61,12 @@ const readCart = async (req, res) => {
 //   });
   res.json(cart);
 };
+const editCart = async(req,res)=>{
+  const { user } = res.locals
+  const {itemId, itemAmount} = req.body;
+  console.log(user[0].userCart)
+  user[0].userCart.find(itemId)
+  console.log(user[0].userCart.find(itemId))
+}
 
-module.exports = {addCart,readCart}  ;
+module.exports = {addCart,readCart, editCart}  ;

@@ -80,8 +80,10 @@ router.post("/login/reqLogin", async (req, res) => {
 // });
 
 router.get("/login/getUser", authMiddleWare, (req, res) => {
+
   const { user } = res.locals;
-  res.send({ user });
+  console.log(user)
+  res.json(user);
 });
 
 router.get("/login/logOut", (req, res) => {

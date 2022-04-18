@@ -2,7 +2,10 @@ const jwt = require("jsonwebtoken");
 const User = require("../schemas/user");
 
 module.exports = (req, res, next) => {
+  // console.log(req.headers)
+  // console.log("미들웨어1")
   const { authorization } = req.headers;
+  // console.log("미들웨어2")
   const [authType, authToken] = (authorization || "").split(" ");
   if (!authToken || authType !== "Bearer") {
     res.status(401).send({

@@ -5,7 +5,7 @@ const authMiddleWare = require("../middleWares/authMiddleWare");
 const User = require("../schemas/user")
 
 
-const {addCart, readCart} = require("../controller/carts.js");
+const {addCart, readCart, editCart} = require("../controller/carts.js");
 
 //장바구니에 상품 담기
 router.post("/addCart", authMiddleWare, addCart);
@@ -16,7 +16,7 @@ router.get("/readCart", authMiddleWare, readCart);
 
 
 // //장바구니 수정
-// router.put("/editCart", authMiddleWare, controller.putCart);
+router.put("/editCart", authMiddleWare, editCart);
 
 // // 장바구니 수량 증가 +1
 // router.put("/inc/:itemId", authMiddleWare, controller.putCartInc);
