@@ -34,17 +34,17 @@ router.get("/readCart", async (req, res) => {
 });
 
 
-// 장바구니 수정
-// router.put("/editCart", authMiddleware, controller.putCart);
+//장바구니 수정
+router.put("/editCart", authMiddleware, controller.putCart);
 
-// // 장바구니 수량 증가 +1
-// router.put("/inc/:postId", authMiddleware, controller.putCartInc);
+//장바구니 수량 증가 +1
+router.put("/inc/:postId", authMiddleware, controller.putCartInc);
 
-// // 장바구니 수량 감소 -1
-// router.put("/dec/:postId", authMiddleware, controller.putCartDec);
+//장바구니 수량 감소 -1
+router.put("/dec/:postId", authMiddleware, controller.putCartDec);
 
-// // 장바구니 삭제
-// router.delete("/deleteCart", authMiddleware, controller.deleteCart);
+// 장바구니 삭제
+router.delete("/deleteCart", authMiddleware, controller.deleteCart);
 
 
 // router.get("/api/carts", async (req, res) => {
