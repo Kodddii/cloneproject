@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../../schemas/user");
-const authMiddleWare = require("../../middleWares/authMiddleWare");
 
 const signUp = async (req, res) => {
   const { userId, pwd, pwdCheck, userName, userAddress } = req.body;
