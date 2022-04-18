@@ -12,18 +12,18 @@ const CartSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // userAddress: {
-  //   type: String,
-  //   required: true,
-  // },
+  userAddress: {
+    type: String,
+    required: true,
+  },
   itemPrice: {
     type: String,
     required: true,
   },
-  // itemCategory: {
-  //   type: String,
-  //   required: true,
-  // },
+  itemCategory: {
+    type: String,
+    required: true,
+  },
   itemImg: {
     type: String,
     required: true,
