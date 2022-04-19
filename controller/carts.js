@@ -71,25 +71,10 @@ const editCart = async (req, res) => {
 // 장바구니 삭제
 
 const deleteCart = async (req, res) => {
-  const { user } = res.locals;
-  const { userId, itemName, itemAmount } = req.body;
-  const userCart = user[0].userCart[0];
+  const { userId, itemId } = req.body;
 
-  console.log(userCart);
-
-  await User.findOne({ userCart });
-
-  if (userId === userCart.cartUserId) {
-    await User.delete({ userCart });
-    res.json({ result: "deleteSuccess" });
-  }
-  res.json({ result: "deleteFail" });
-
-  // if (existsCarts.length) {
-  //   await User.updateOne({ userId }, { $pop: { userCart: userCartData } });
-
-  //   res.json({ success: true });
-  // }
+  await User.updateOne({ userId }, { $pull: { userCart: { itemId } } });
+  res.json({ result: "deleteSuccess" });
 };
 
 module.exports = { addCart, readCart, editCart, deleteCart };
