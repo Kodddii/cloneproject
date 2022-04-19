@@ -28,8 +28,9 @@ const CartSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cartUserId: {
-    type: String
+  userId:{
+    type:String,
+    required:true,
   }
 });
 
