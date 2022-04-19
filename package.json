@@ -1,9 +1,13 @@
 {
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "cheerio": "^1.0.0-rc.10",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.0"
+    "mongoose": "^6.3.0",
+    "puppeteer": "^13.5.2",
+    "swagger": "^0.7.5"
   }
 }

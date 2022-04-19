@@ -84,34 +84,9 @@ res.status(201).send()
 
 
 
-// db.bar.update( {user_id : 123456 , "items.item_name" : "my_item_two" } , 
-// {$inc : {"items.$.price" : 1} } , 
-// false , 
-// true);
 
-// db.bar.update( {user_id : 123456, "items.item_name" : {$ne : "my_item_two" }} , 
-// {$addToSet : {"items" : {'item_name' : "my_item_two" , 'price' : 1 }} } ,
-// false , 
-// true);
-
-
-
-// console.log(data.userCart)
-
-// const cartData = data[0].userCart
-// console.log(cartData)
-// cartData.find(a=>a.itemId=itemId).itemAmount=itemAmount
-// console.log(cartData)
-// await data.save();
-// console.log(data)
 }
-// db.users.find({awards: {$elemMatch: {award:'National Medal', year:1975}}})
-// function edit(array){
-//   if(array.itemId === itemId){
-//     array.itemAmount = itemAmount
-//   }
-//   return array
-// }
+
 
 
 const deleteCart = async (req, res) => {
