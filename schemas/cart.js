@@ -28,6 +28,9 @@ const CartSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  cartUserId: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model("Cart", CartSchema);
