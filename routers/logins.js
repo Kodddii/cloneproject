@@ -25,7 +25,11 @@ router.post("/login/reqLogin", reqLogin);
 //   res.send({ user_name: user[0].user_name, _id: user[0]._id });
 // });
 
-router.get("/login/getUser", authMiddleWare, getUser);
+router.get("/login/getUser", authMiddleWare, (req, res) => {
+  const { user } = res.locals;
+  console.log(user);
+  res.json(user);
+});
 
 router.get("/login/logOut", logOut);
 

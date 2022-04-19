@@ -1,6 +1,6 @@
 const express = require("express");
 const res = require("express/lib/response");
-const Item = require("../schemas/item.js");
+const Item = require("../schemas/item");
 const router = express.Router();
 
 
@@ -15,7 +15,6 @@ router.get('/main',async(req,res)=>{
 //베스트 페이지
 router.get('/bestItem',async(req,res)=>{
     const item = await Item.find({})
-    
     const bestItem = item.sort((a,b)=>{
         b.cartCount - a.cartCount
     })
@@ -23,16 +22,16 @@ router.get('/bestItem',async(req,res)=>{
     
 })
 //카테고리별 페이지
-router.get('/:category', async(req,res)=>{
+router.get('/category/:category', async(req,res)=>{
     const category = req.params.category
     const itemInCategory = await Item.find({itemCategory: category});
     return res.status(201).json(itemInCategory)
 });
 //디테일페이지 
-router.get('/:detail', async(req,res)=>{
-    const itemId = req.params;
-    const item = await Item.find({itemId:itemId});
-    
+router.get('/detail/:detail', async(req,res)=>{
+    console.log(req.params)
+    const itemId = req.params.detail;
+    const item = await Item.findById(itemId);
     return res.status(201).json(item);
 })
 
