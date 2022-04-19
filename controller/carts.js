@@ -9,7 +9,6 @@ const addCart = async (req, res) => {
   console.log("여기여기");
   console.log({ userId });
 
-  // const item = Item.findOne({ _Id: itemId });
   const {
     itemId,
     itemName,
@@ -18,6 +17,7 @@ const addCart = async (req, res) => {
     userAddress,
     itemCategory,
     itemImg,
+    cartUserId,
   } = req.body;
   const userCartData = {
     itemId: itemId,
@@ -27,6 +27,7 @@ const addCart = async (req, res) => {
     userAddress: userAddress,
     itemCategory: itemCategory,
     itemImg: itemImg,
+    cartUserId: cartUserId,
   };
 
   await User.updateOne({ userId }, { $push: { userCart: userCartData } });
@@ -48,7 +49,7 @@ const addCart = async (req, res) => {
     userAddress: userAddress,
     itemCategory: itemCategory,
     itemImg: itemImg,
-    userId: userId,
+    cartUserId: cartUserId,
   });
   res.send("장바구니에 상품이 추가되었습니다!");
 };
@@ -57,12 +58,6 @@ const addCart = async (req, res) => {
 const readCart = async (req, res) => {
   const { user } = res.locals;
   const cart = user[0].userCart;
-
-  //     return {
-  //       : cart.itemAmount,
-  //       item: itempage.find((item) => item.itemId === cart.itemId),
-  //     };
-  //   });
   res.json(cart);
 };
 const editCart = async (req, res) => {
