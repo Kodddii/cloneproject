@@ -4,7 +4,12 @@ const router = express.Router();
 const authMiddleWare = require("../middleWares/authMiddleWare");
 const User = require("../schemas/user");
 
-const { addCart, readCart, editCart } = require("../controller/carts.js");
+const {
+  addCart,
+  readCart,
+  editCart,
+  deleteCart,
+} = require("../controller/carts.js");
 
 //장바구니에 상품 담기
 router.post("/addCart", authMiddleWare, addCart);
@@ -23,7 +28,7 @@ router.put("/editCart", authMiddleWare, editCart);
 // router.put("/dec/:itemId", authMiddleWare, controller.putCartDec);
 
 // // 장바구니 삭제
-// router.delete("/deleteCart", authMiddleWare, controller.deleteCart);
+router.delete("/deleteCart", authMiddleWare, deleteCart);
 
 // router.get("/api/carts", async (req, res) => {
 //   res.json("carts!!")
