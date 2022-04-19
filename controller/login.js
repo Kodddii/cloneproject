@@ -55,7 +55,7 @@ const idCheck = async (req, res) => {
 const reqLogin = async (req, res) => {
   const { userId, pwd } = req.body;
   const user = await User.findOne({ userId, pwd }).exec();
-  console.log(user);
+
   if (!user) {
     res.status(401).send({
       errorMessage: "아이디 혹은 비밀번호가 잘못되었습니다.",
