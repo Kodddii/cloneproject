@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const itemSchema = new mongoose.Schema({
   itemId: "string",
   itemName: "string",
