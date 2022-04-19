@@ -19,7 +19,7 @@ router.post("/addCart", authMiddleWare, addCart);
 router.get("/readCart", authMiddleWare, readCart);
 
 // //장바구니 수정
-// router.put("/editCart", authMiddleWare, readCart);
+// router.put("/editCart", authMiddleWare, editCart);
 
 // // 장바구니 수량 증가 +1
 // router.put("/inc/:itemId", authMiddleWare, controller.putCartInc);

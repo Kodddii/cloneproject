@@ -60,13 +60,14 @@ const readCart = async (req, res) => {
   const cart = user[0].userCart;
   res.json(cart);
 };
-const editCart = async (req, res) => {
-  const { user } = res.locals;
-  const { itemId, itemAmount } = req.body;
-  console.log(user[0].userCart);
-  user[0].userCart.find(itemId);
-  console.log(user[0].userCart.find(itemId));
-};
+
+// const editCart = async (req, res) => {
+//   const { user } = res.locals;
+//   const { itemId, itemAmount } = req.body;
+//   console.log(user[0].userCart);
+//   user[0].userCart.find(itemId);
+//   console.log(user[0].userCart.find(itemId));
+// };
 
 // 장바구니 삭제
 
@@ -77,4 +78,4 @@ const deleteCart = async (req, res) => {
   res.json({ result: "deleteSuccess" });
 };
 
-module.exports = { addCart, readCart, editCart, deleteCart };
+module.exports = { addCart, readCart, deleteCart };
