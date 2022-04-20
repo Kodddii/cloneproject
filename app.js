@@ -3,6 +3,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
+const socketIo = require("socket.io");
 const connect = require("./schemas");
 
 const bodyParser = require("body-parser");
@@ -21,6 +22,17 @@ const requestMiddleWare = (req, res, next) => {
   console.log("request Url : ", req.originalUrl, "-", new Date());
   next();
 };
+
+const io = socketIo(3000, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("연결이 되었습니다.");
+});
 
 //미들웨어
 app.use(cors());
