@@ -45,9 +45,10 @@ const editCart = async(req,res)=>{
   try {
     await User.updateOne({userId:userId,"userCart.itemId": itemId},
     {$set:{"userCart.$.itemAmount": itemAmount,"userCart.$.itemPrice":itemPrice},});
-  return res.status(201).send()}
+    res.status(201).send()}
     
-   catch (error) {
+  catch (error) {
+    console.log(error)
     res.status(400)
   }
 }
@@ -59,7 +60,6 @@ const editCart = async(req,res)=>{
 const deleteCart = async (req, res) => {
   const { userId, itemId } = req.body;
   for (x of itemId){
-    console.log(x)
   await User.updateOne({ userId }, { $pull: { userCart:{ itemId:x } }});
   
 };
@@ -67,4 +67,4 @@ res.json({ result: "deleteSuccess" });
 }
 
 
-module.exports = {addCart,readCart,editCart, deleteCart}  ;
+module.exports = {addCart,readCart,editCart,deleteCart};
