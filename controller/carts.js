@@ -92,7 +92,7 @@ res.status(201).send()
 const deleteCart = async (req, res) => {
   const { userId, itemId } = req.body;
 
-  await User.updateOne({ userId }, { $pull: { userCart: { itemId } } });
+  await User.updateMany({ userId }, { $pull: { userCart: { itemId } } });
   res.json({ result: "deleteSuccess" });
 };
 
