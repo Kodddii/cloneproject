@@ -6,7 +6,7 @@ const cors = require("cors");
 const socketIo = require("socket.io");
 const connect = require("./schemas");
 const nunjucks = require("nunjucks");
-const axious = require("axios");
+const axios = require("axios");
 const qs = require("qs");
 const session = require("express-session");
 
