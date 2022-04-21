@@ -1,7 +1,7 @@
 //express 모듈 불러오기
 require("dotenv").config();
-const mongoose = require("mongoose");
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const socketIo = require("socket.io");
 const connect = require("./schemas");
@@ -9,15 +9,17 @@ const nunjucks = require("nunjucks");
 const axios = require("axios");
 const qs = require("qs");
 const session = require("express-session");
-
 const bodyParser = require("body-parser");
+const passportConfig = require("./passport");
 const app = express();
 const port = 3000;
+passportConfig();
 
 //라우터
 const loginRouter = require("./routers/logins");
 const itemRouter = require("./routers/itempage");
 const cartsRouter = require("./routers/carts");
+const userRouter = require("./routers/user");
 connect();
 
 //접속로그 확인
@@ -27,6 +29,11 @@ const requestMiddleWare = (req, res, next) => {
   next();
 };
 
+//미들웨어
+app.use(cors());
+app.use(express.json());
+app.use(requestMiddleWare);
+app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "html");
 nunjucks.configure("views", {
   express: app,
@@ -41,11 +48,16 @@ app.use(
   })
 );
 
-const kakao = {
-  clientID: "734015",
-  clientSecret: "hPaI7YNNrR0FMAYGyS8OSsttCuYpmoAJ",
-  redirectUri: "http://54.180.90.16/oauth/kakao",
-};
+class kakao {
+  url = "https://kauth.kakao.com/oauth/token";
+  clientID = process.env.KAKAO_ID;
+  clientSecret = process.env.KAKAO_SECRET;
+  redirectUri = process.env.KAKAO_URL;
+  code = code;
+
+  // userInfo
+  userInfoUrl = "https://kapi.kakao.com/v2/user/me";
+}
 // const io = socketIo(3000, {
 //   cors: {
 //     origin: "*",
@@ -57,18 +69,14 @@ const kakao = {
 //   console.log("연결이 되었습니다.");
 // });
 
-//미들웨어
-app.use(cors());
-app.use(express.json());
-app.use(requestMiddleWare);
-app.use(express.urlencoded({ extended: false }));
-
 app.get("/auth/kakao", (req, res) => {
   const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientID}&redirect_uri=${kakao.redirectUri}&response_type=code&scope=profile,account_email`;
+  console.log(kakao.clientID, kakao.redirectUri);
+  console.log(kakaoAuthURL);
   res.redirect(kakaoAuthURL);
 });
 
-app.get("/oauth/kakao", async (req, res) => {
+app.get("/auth/kakao/callback", async (req, res) => {
   try {
     token = await axios({
       method: "POST",
@@ -102,7 +110,7 @@ app.get("/oauth/kakao", async (req, res) => {
   } catch (e) {
     res.json(e.data);
   }
-  console.log(user);
+  console.log("user: ", user);
 
   req.session.kakao = user.data;
   res.send("success");
@@ -110,6 +118,7 @@ app.get("/oauth/kakao", async (req, res) => {
 
 app.get("/auth/info", (req, res) => {
   let { nickname } = req.session.kakao.properties;
+  console.log("req: ", req.session.kakao);
   res.render("info", {
     nickname,
   });
@@ -119,6 +128,7 @@ app.get(kakao.redirectUri);
 
 //라우터 연결
 app.use("/", [loginRouter, itemRouter, cartsRouter]);
+app.use("/auth", userRouter);
 
 app.listen(port, () => {
   console.log(port, "번으로 서버가 켜졌어요!");
