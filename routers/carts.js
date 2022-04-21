@@ -28,7 +28,7 @@ router.put("/editCart", authMiddleWare, editCart);
 // router.put("/dec/:itemId", authMiddleWare, controller.putCartDec);
 
 // // 장바구니 삭제
-router.delete("/deleteCart", authMiddleWare, deleteCart);
+router.patch("/deleteCart", authMiddleWare, deleteCart);
 
 // router.get("/api/carts", async (req, res) => {
 //   res.json("carts!!")

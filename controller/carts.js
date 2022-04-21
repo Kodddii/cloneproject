@@ -4,6 +4,7 @@ const User = require("../schemas/user");
  
 //장바구니에 상품 담기
 const addCart = async (req, res) => {
+  console.log(req.body)
   // const { user } = res.locals;
   // const userId = user[0].userId
   const { itemId, itemName, itemAmount, itemPrice, userAddress, itemCategory, itemImg, userId} = req.body;
