@@ -48,16 +48,11 @@ app.use(
   })
 );
 
-class kakao {
-  url = "https://kauth.kakao.com/oauth/token";
-  clientID = process.env.KAKAO_ID;
-  clientSecret = process.env.KAKAO_SECRET;
-  redirectUri = process.env.KAKAO_URL;
-  code = code;
-
-  // userInfo
-  userInfoUrl = "https://kapi.kakao.com/v2/user/me";
-}
+const kakao = {
+  clientID: process.env.CLIENTID,
+  clientSecret: process.env.CLIENTSECRET,
+  redirectUri: process.env.REDIRECTURI,
+};
 // const io = socketIo(3000, {
 //   cors: {
 //     origin: "*",
@@ -71,7 +66,6 @@ class kakao {
 
 app.get("/auth/kakao", (req, res) => {
   const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientID}&redirect_uri=${kakao.redirectUri}&response_type=code&scope=profile,account_email`;
-  console.log(kakao.clientID, kakao.redirectUri);
   console.log(kakaoAuthURL);
   res.redirect(kakaoAuthURL);
 });

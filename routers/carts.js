@@ -20,6 +20,6 @@ router.get("/readCart", authMiddleWare, readCart);
 router.put("/editCart", authMiddleWare, editCart);
 
 // 장바구니 삭제
-router.delete("/deleteCart", authMiddleWare, deleteCart);
+router.patch("/deleteCart", authMiddleWare, deleteCart);
 
 module.exports = router;
