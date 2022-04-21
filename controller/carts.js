@@ -103,6 +103,7 @@ const deleteCart = async (req, res) => {
   const { userId, itemId } = req.body;
 
   await User.updateOne({ userId }, { $pull: { userCart: { itemId } } });
+  console.log(itemId);
   res.json({ result: "deleteSuccess" });
 };
 

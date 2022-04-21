@@ -23,16 +23,16 @@ const requestMiddleWare = (req, res, next) => {
   next();
 };
 
-const io = socketIo(3000, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  },
-});
+// const io = socketIo(3000, {
+//   cors: {
+//     origin: "*",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   },
+// });
 
-io.on("connection", (socket) => {
-  console.log("연결이 되었습니다.");
-});
+// io.on("connection", (socket) => {
+//   console.log("연결이 되었습니다.");
+// });
 
 //미들웨어
 app.use(cors());
