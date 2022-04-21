@@ -7,8 +7,8 @@ module.exports = (app) => {
   passport.use(
     new KakaoStrategy(
       {
-        clientID: process.env.KAKAO_ID, // 카카오 로그인에서 발급받은 REST API 키
-        callbackURL: process.env.KAKAO_URL, // 카카오 로그인 Redirect URI 경로
+        clientID: process.env.CLIENTID, // 카카오 로그인에서 발급받은 REST API 키
+        callbackURL: process.env.REDIRECTURI, // 카카오 로그인 Redirect URI 경로
       },
       // clientID에 카카오 앱 아이디 추가
       // callbackURL: 카카오 로그인 후 카카오가 결과를 전송해줄 URL

@@ -65,12 +65,15 @@ const kakao = {
 // });
 
 app.get("/auth/kakao", (req, res) => {
-  const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientID}&redirect_uri=${kakao.redirectUri}&response_type=code&scope=profile,account_email`;
-  console.log(kakao.clientID);
+  const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientID}&redirect_uri=${kakao.redirectUri}&response_type=code&scope=profile_nickname`;
+  console.log("ID : ", kakao.clientID);
+  console.log(kakaoAuthURL);
   res.redirect(kakaoAuthURL);
 });
 
 app.get("/auth/kakao/callback", async (req, res) => {
+  console.log(req.query);
+  let token;
   try {
     token = await axios(
       {
@@ -89,17 +92,17 @@ app.get("/auth/kakao/callback", async (req, res) => {
           code: req.query.code,
         }),
       },
-      console.log({ token })
+      console.log("token1: ", token)
     );
   } catch (err) {
-    console.log({ err });
-    // res.json(err.data);
+    // console.log("err: ", err);
+    res.json(err.data);
   }
 
   // let token = ;
   let user;
   try {
-    console.log(token); //access정보를 가지고 또 요청해야 정보를 가져올 수 있음.
+    console.log("token2: ", token); //access정보를 가지고 또 요청해야 정보를 가져올 수 있음.
     user = await axios({
       method: "get",
       url: "https://kapi.kakao.com/v2/user/me",
@@ -107,30 +110,33 @@ app.get("/auth/kakao/callback", async (req, res) => {
         Authorization: `Bearer ${token.data.access_token}`,
       },
     });
-    console.log(user.data);
+    // console.log("user.data: ", user.data);
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     res.json(e.data);
   }
   console.log("user:", user);
 
-  // req.session.kakao = user.data;
-  // res.send("success");
+  req.session.kakao = user.data;
+  // console.log("kakao session : ", req.session.kakao);
+  // console.log("kakao session : ", req.session.kakao.properties);
+  let { nickname } = req.session.kakao.properties;
+  console.log(nickname);
+  res.send("success");
 });
 
-app.get("/auth/info", (req, res) => {
-  let { nickname } = req.session.kakao.properties;
-  console.log("req: ", req.session.kakao);
-  res.render("info", {
-    nickname,
-  });
-});
+// app.get("/auth/info", (req, res) => {
+//   let { nickname } = req.session.kakao.properties;
+//   console.log("req: ", req.session);
+//   res.render("info", {
+//     nickname,
+//   });
+// });
 
 app.get(kakao.redirectUri);
 
 //라우터 연결
 app.use("/", [loginRouter, itemRouter, cartsRouter]);
-app.use("/auth", userRouter);
 
 app.listen(port, () => {
   console.log(port, "번으로 서버가 켜졌어요!");
