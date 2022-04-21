@@ -43,9 +43,9 @@ app.use(
 );
 
 const kakao = {
-  clientID: "734015",
-  clientSecret: "hPaI7YNNrR0FMAYGyS8OSsttCuYpmoAJ",
-  redirectUri: "http://54.180.90.16/oauth/kakao",
+  clientID: process.env.CLIENTID,
+  clientSecret: process.env.CLIENTSECRET,
+  redirectUri: process.env.REDIRECTURI,
 };
 // const io = socketIo(3000, {
 //   cors: {
@@ -64,72 +64,60 @@ app.use(express.json());
 app.use(requestMiddleWare);
 app.use(express.urlencoded({ extended: false }));
 
-// app.get("/auth/kakao", (req, res) => {
-//   const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientID}&redirect_uri=${kakao.redirectUri}&response_type=code&scope=profile,account_email`;
-//   res.redirect(kakaoAuthURL);
-// });
+app.get("/auth/kakao", (req, res) => {
+  const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientID}&redirect_uri=${kakao.redirectUri}&response_type=code&scope=profile,account_email`;
+  console.log(kakaoAuthURL)
+  res.redirect(kakaoAuthURL);
+});
 
-// app.get("/oauth/kakao", async (req, res) => {
-//   try {
-//     token = await axios({
-//       method: "POST",
-//       url: "https://kauth.kakao.com/oauth/token",
-//       headers: {
-//         "content-type": "application/x-www-form-urlencoded",
-//       },
-//       data: qs.stringify({
-//         //객체를 string 으로 변환
-//         grant_type: "authorization_code", //특정 스트링
-//         client_id: kakao.clientID,
-//         client_secret: kakao.clientSecret,
-//         redirectUri: kakao.redirectUri,
-//         code: req.query.code,
-//       }),
-//     });
-//   } catch (err) {
-//     res.json(err.data);
-//   }
+app.get("/oauth/kakao", async (req, res) => {
+  try {
+    token = await axios({
+      method: "POST",
+      url: "https://kauth.kakao.com/oauth/token",
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+      },
+      data: qs.stringify({
+        //객체를 string 으로 변환
+        grant_type: "authorization_code", //특정 스트링
+        client_id: kakao.clientID,
+        client_secret: kakao.clientSecret,
+        redirectUri: kakao.redirectUri,
+        code: req.query.code,
+      }),
+    });
+  } catch (err) {
+    res.json(err.data);
+  }
 
-//   let user;
-//   try {
-//     console.log(token); //access정보를 가지고 또 요청해야 정보를 가져올 수 있음.
-//     user = await axios({
-//       method: "get",
-//       url: "https://kapi.kakao.com/v2/user/me",
-//       headers: {
-//         Authorization: `Bearer ${token.data.access_token}`,
-//       },
-//     });
-//   } catch (e) {
-//     res.json(e.data);
-//   }
-//   console.log(user);
+  let user;
+  try {
+    console.log(token); //access정보를 가지고 또 요청해야 정보를 가져올 수 있음.
+    user = await axios({
+      method: "get",
+      url: "https://kapi.kakao.com/v2/user/me",
+      headers: {
+        Authorization: `Bearer ${token.data.access_token}`,
+      },
+    });
+  } catch (e) {
+    res.json(e.data);
+  }
+  console.log(user);
 
-//   req.session.kakao = user.data;
-//   res.send("success");
-// });
+  req.session.kakao = user.data;
+  res.send("success");
+});
 
-// app.get("/auth/info", (req, res) => {
-//   let { nickname } = req.session.kakao.properties;
-//   res.render("info", {
-//     nickname,
-//   });
-// });
+app.get("/auth/info", (req, res) => {
+  let { nickname } = req.session.kakao.properties;
+  res.render("info", {
+    nickname,
+  });
+});
 
-// app.get(kakao.redirectUri);
-
-카카오로그인
-const passport = require('passport') 
-const KakaoStrategy = require('passport-kakao').Strategy 
-passport.use('kakao-login', new KakaoStrategy({ 
-  clientID: '[REST API Key]', callbackURL: '[등록한 Redirect URI]', 
-}, async (accessToken, refreshToken, profile, done) => { 
-  console.log(accessToken); 
-  console.log(profile); 
-}));
-
-
-
+app.get(kakao.redirectUri);
 
 //라우터 연결
 app.use("/", [loginRouter, itemRouter, cartsRouter]);

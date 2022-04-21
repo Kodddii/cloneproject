@@ -10,6 +10,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.0",
     "nunjucks": "^3.2.3",
+    "passport": "^0.5.2",
+    "passport-kakao": "^1.0.1",
     "puppeteer": "^13.5.2",
     "qs": "^6.10.3",
     "session": "^0.1.0",
