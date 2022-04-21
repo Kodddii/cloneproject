@@ -42,9 +42,9 @@ app.use(
 );
 
 const kakao = {
-  clientID: "734015",
-  clientSecret: "hPaI7YNNrR0FMAYGyS8OSsttCuYpmoAJ",
-  redirectUri: "http://54.180.90.16/oauth/kakao",
+  clientID: process.env.CLIENTID,
+  clientSecret: process.env.CLIENTSECRET,
+  redirectUri: process.env.REDIRECTURI,
 };
 // const io = socketIo(3000, {
 //   cors: {
@@ -65,6 +65,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/auth/kakao", (req, res) => {
   const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientID}&redirect_uri=${kakao.redirectUri}&response_type=code&scope=profile,account_email`;
+  console.log(kakaoAuthURL)
   res.redirect(kakaoAuthURL);
 });
 
