@@ -49,28 +49,36 @@ const readCart = async (req, res) => {
 };
 
 //장바구니 수정
-const editCart = async (req, res) => {
-  const { user } = res.locals;
-  const userId = user[0].userId;
-  const { itemId, itemAmount, itemPrice } = req.body;
+const editCart = async(req,res)=>{
+  const { user } = res.locals
+  const userId = user[0].userId
+  // console.log(userId)
+  const {itemId, itemAmount, itemPrice} = req.body;
+  console.log({itemId, itemAmount, itemPrice})
   try {
-    await User.updateOne(
-      { userId: userId, "userCart.itemId": itemId },
-      {
-        $set: {
-          "userCart.$.itemAmount": itemAmount,
-          "userCart.$.itemPrice": itemPrice,
-        },
-      }
-    );
-    res.status(201).send("장바구니가 수정되었습니다.");
-  } catch (error) {
-    res.status(400).send("실패했습니다.");
+    const userData1 = await User.findOne({userId:userId,"userCart.itemId":itemId})
+    // console.log(userData1)
+    await User.updateOne({userId:userId,"userCart.itemId": itemId},
+    {$set:{"userCart.$.itemAmount": itemAmount,"userCart.$.itemPrice":itemPrice},});
+    const userData2 = await User.findOne({userId:userId,"userCart.itemId":itemId})
+    // console.log(userData2)
+    const cart = userData2.userCart
+    
+    // console.log("cart"+cart)
+    const cartItem = cart.find(a=>a.itemId === itemId)
+    // console.log(cartItem)
+    res.status(201).send(cartItem)
+  }
+    
+  catch (error) {
+    console.log(error)
+    res.status(400)
   }
 };
 
 //장바구니 삭제
 const deleteCart = async (req, res) => {
+  console.log(req.body)
   const { userId, itemId } = req.body;
   try {
     for (x of itemId) {

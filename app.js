@@ -13,6 +13,13 @@ const bodyParser = require("body-parser");
 const passportConfig = require("./passport");
 const app = express();
 const port = 3000;
+
+//라우터
+const loginRouter = require("./routers/logins");
+const itemRouter = require("./routers/itempage");
+const cartsRouter = require("./routers/carts");
+const urlencoded = require("body-parser/lib/types/urlencoded");
+connect();
 passportConfig();
 
 //접속로그 확인
@@ -141,3 +148,9 @@ app.use("/", [loginRouter, itemRouter, cartsRouter]);
 app.listen(port, () => {
   console.log(port, "번으로 서버가 켜졌어요!");
 });
+
+
+
+
+
+
