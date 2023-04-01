@@ -59,7 +59,7 @@ const editCart = async(req,res)=>{
     const userData1 = await User.findOne({userId:userId,"userCart.itemId":itemId})
     // console.log(userData1)
     await User.updateOne({userId:userId,"userCart.itemId": itemId},
-    {$set:{"userCart.$.itemAmount": itemAmount,"userCart.$.itemPrice":itemPrice},});
+      {$set:{"userCart.$.itemAmount": itemAmount,"userCart.$.itemPrice":itemPrice},});
     const userData2 = await User.findOne({userId:userId,"userCart.itemId":itemId})
     // console.log(userData2)
     const cart = userData2.userCart

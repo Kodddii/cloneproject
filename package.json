@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "aws-sdk": "^2.1120.0",
     "axios": "^0.26.1",
     "body-parser": "^1.20.0",
     "cheerio": "^1.0.0-rc.10",
@@ -15,7 +16,7 @@
     "puppeteer": "^13.5.2",
     "qs": "^6.10.3",
     "session": "^0.1.0",
-    "socket.io": "^4.4.1",
+    "socket.io": "^4.5.0",
     "swagger": "^0.7.5"
   }
 }
